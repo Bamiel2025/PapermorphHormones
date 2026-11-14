@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapitre 1 · Déclencher la puberté — Contrôle hormonal</title>
+<link rel="stylesheet" href="../lib/engine.css">
+<link rel="expect" href="#bar" blocking="render">
+</head>
+<body>
+<script src="../lib/engine.js"></script>
+<script src="../lib/lang-fr.js"></script>
+<script src="../lib/vocab.js"></script>
+<script src="audio/fr/timings.js"></script>
+<script>
+'use strict';
+const CHAPTER = {
+  number: 1,
+  title: 'Déclencher la puberté : le rôle du cerveau et des hormones',
+  minutes: 6,
+  language: 'fr',
+  next: '../ch02/',
+};
+
+const BEATS = [
+  ['intro', 'Introduction', (m, D) => {
+    const g = G(scene, { o: 0, y: 18 });
+    T(g, 'SVT · Cycle 4 (4e) · Partie 1 · Chapitre 1', { x: 800, y: 195, size: 27, fill: COL.dim, anchor: 'middle' });
+    T(g, 'Déclencher la puberté', { x: 800, y: 300, size: 78, weight: 700, fill: COL.chalk, anchor: 'middle' });
+    T(g, 'Le rôle du cerveau et des hormones', { x: 800, y: 382, size: 50, weight: 600, fill: C_BLOOD, anchor: 'middle' });
+    horSchemaNode(g, 360, 545, 250, 88, 'Hypophyse', { color: C_BRAIN, sub: 'cerveau' });
+    horBloodStream(g, 505, 545, 1085, 545, C_BRAIN, .25, .85, { droplets: 6 });
+    horSchemaNode(g, 1235, 545, 260, 88, ['Ovaires', 'ou testicules'], { color: C_SEX, sub: 'organes cibles' });
+    T(g, 'Gonadostimulines dans le sang', { x: 795, y: 495, size: 22, weight: 600, fill: C_BRAIN, anchor: 'middle' });
+    tw(g, { o: 1, y: 0 }, .12, .75, out);
+    const sub = horText(scene, 'Comment une minuscule glande sous le cerveau lance-t-elle la puberté ?', 800, 745, m('sub'), { size: 30, fill: COL.dim, anchor: 'middle' });
+    tw(g, { o: 0, y: -18 }, D - .75, .65);
+    hide(sub, D - .75, .65);
+  }],
+
+  ['definition', 'Définir une hormone', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Qu’est-ce qu’une hormone ?', 68, .05, 'Communication chimique à distance par la circulation sanguine');
+
+    horCard(p, 65, 152, 430, 505, { title: '1. Glande endocrine', color: C_BRAIN, t0: .08 });
+    const c1 = G(p, { o: 0 });
+    for (let i = 0; i < 6; i++) {
+      const a = (i / 6) * Math.PI * 2;
+      mk('circle', {
+        cx: 280 + Math.cos(a) * 44, cy: 325 + Math.sin(a) * 34, r: 22,
+        fill: mix('#102030', C_BRAIN, .28), stroke: C_BRAIN, 'stroke-width': 2.2,
+      }, c1);
+    }
+    mk('circle', { cx: 280, cy: 325, r: 10, fill: C_ESTRO }, c1);
+    T(c1, 'Fabrique et libère une', { x: 280, y: 440, size: 22, anchor: 'middle' });
+    T(c1, 'substance chimique.', { x: 280, y: 472, size: 22, anchor: 'middle' });
+    horPill(c1, 280, 585, 'Sécrétion interne', C_BRAIN);
+    show(c1, m('gland') + .05, .45);
+
+    horArrow(p, 504, 345, 566, 345, m('blood') - .05, { color: C_BLOOD, sw: 4.5 });
+
+    horCard(p, 575, 152, 450, 505, { title: '2. Voie sanguine', color: C_BLOOD, t0: .14 });
+    const c2 = G(p, { o: 0 });
+    horBloodStream(c2, 625, 345, 975, 345, C_BRAIN, m('blood') + .15, .85, { droplets: 6 });
+    T(c2, 'L’hormone circule dans le', { x: 800, y: 440, size: 22, anchor: 'middle' });
+    T(c2, 'sang à travers tout le corps.', { x: 800, y: 472, size: 22, anchor: 'middle' });
+    horPill(c2, 800, 585, 'Transport par le sang', C_BLOOD);
+    show(c2, m('blood') + .05, .45);
+
+    horArrow(p, 1034, 345, 1096, 345, m('target') - .05, { color: C_SEX, sw: 4.5 });
+
+    horCard(p, 1105, 152, 430, 505, { title: '3. Organe cible', color: C_SEX, t0: .2 });
+    const c3 = G(p, { o: 0 });
+    mk('rect', { x: 1215, y: 265, width: 210, height: 115, rx: 18, fill: mix('#102030', C_SEX, .2), stroke: C_SEX, 'stroke-width': 2.5 }, c3);
+    T(c3, 'Récepteurs', { x: 1320, y: 318, size: 23, weight: 700, fill: COL.chalk, anchor: 'middle' });
+    T(c3, 'spécifiques', { x: 1320, y: 350, size: 21, fill: C_SEX, anchor: 'middle' });
+    T(c3, 'Seules les cellules cibles', { x: 1320, y: 440, size: 22, anchor: 'middle' });
+    T(c3, 'modifient leur activité.', { x: 1320, y: 472, size: 22, anchor: 'middle' });
+    horPill(c3, 1320, 585, 'Action spécifique', C_SEX);
+    show(c3, m('target') + .05, .45);
+
+    horPill(p, 800, 745, 'À retenir : Glande → Sang → Organe cible spécifique', C_ESTRO, m('target') + .45, { w: 790, size: 23 });
+  }],
+
+  ['hypophyse', 'Hypophyse et puberté', (m) => {
+    const p = panel(0);
+    horTitle(p, 'L’hypophyse déclenche la puberté', 68, .05, 'Documents du cours : localisation cérébrale et courbes des gonadostimulines');
+
+    horCard(p, 60, 148, 640, 425, { title: 'Localisation de l’hypophyse', color: C_BRAIN, t0: .08 });
+    horDoc(p, '../img/doc_hypophyse.webp', 85, 208, 590, 345, { color: C_BRAIN, pad: 8, t0: .14 });
+    horSpotlight(p, 85, 208, 590, 345, C_BRAIN, m('brain'), .4, { fillOpacity: .04 });
+
+    horCard(p, 730, 148, 810, 425, { title: 'Courbes des gonadostimulines', color: C_BLOOD, t0: .14 });
+    horDoc(p, '../img/doc_puberte_courbes.webp', 755, 208, 760, 345, { color: C_BLOOD, pad: 8, t0: .2 });
+    horSpotlight(p, 755, 208, 760, 345, C_ESTRO, m('curves'), .4, { fillOpacity: .04 });
+
+    horCard(p, 60, 600, 710, 200, { title: 'Signal cérébral dans le sang', color: C_ESTRO, t0: m('curves') });
+    horText(p, '• Augmentation dès 9,5 ans chez la fille', 95, 692, m('curves') + .25, { size: 23, fill: COL.chalk });
+    horText(p, '• Augmentation dès 11 ans chez le garçon', 95, 732, m('curves') + .45, { size: 23, fill: COL.chalk });
+    horText(p, 'Les gonadostimulines voyagent par la voie sanguine.', 95, 772, m('curves') + .65, { size: 20, fill: C_ESTRO, weight: 600 });
+
+    horCard(p, 800, 600, 740, 200, { title: 'Caractères sexuels primaires', color: C_SEX, t0: m('primary') });
+    horText(p, '• Ovaires (~6,8 g) → 1ères règles vers 12,5 ans', 835, 692, m('primary') + .2, { size: 23, fill: COL.chalk });
+    horText(p, '• Testicules (~40 g) → 1ères éjaculations (~14,5 ans)', 835, 732, m('primary') + .4, { size: 23, fill: COL.chalk });
+    horText(p, 'Le fonctionnement des gonades démarre.', 835, 772, m('primary') + .6, { size: 20, fill: C_SEX, weight: 600 });
+  }],
+
+  ['q1', 'Question · Voie de transport', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Rappel · Transport du message hormonal', 72, .05, 'Observe le schéma avant de répondre');
+    horSchemaNode(p, 350, 300, 280, 96, 'Hypophyse', { color: C_BRAIN, sub: 'base du cerveau', t0: .1 });
+    horBloodStream(p, 515, 300, 1075, 300, C_BRAIN, .2, .75, { droplets: 6 });
+    horSchemaNode(p, 1245, 300, 290, 96, ['Ovaires', 'ou testicules'], { color: C_SEX, sub: 'organes cibles', t0: .15 });
+    horPill(p, 795, 425, 'Gonadostimulines', C_ESTRO, .3, { w: 280 });
+  }, {
+    ask: done => quiz(BAND, [{
+      id: 'ch1-q1',
+      prompt: ['Par quelle voie les gonadostimulines libérées par l’hypophyse atteignent-elles les ovaires et les testicules ?'],
+      build: choice([
+        'Par des nerfs reliant directement le cerveau aux gonades',
+        'Par la circulation sanguine dans tout l’organisme',
+        'Par les voies digestives après les repas',
+      ], 1, 'Exact ! Comme toute hormone, les gonadostimulines sont libérées dans le sang.', [
+        'Non, aucune connexion nerveuse directe n’est requise : il s’agit d’une hormone.',
+        null,
+        'Non, les hormones glandulaires passent directement dans le sang.',
+      ]),
+    }], done),
+  }],
+
+  ['testosterone', 'Testostérone et caractères secondaires', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Origine des caractères sexuels secondaires', 68, .05, 'Expériences d’ablation puis d’injection chez le coq');
+
+    const drawCock = (g, cx, cy, crestSize, color) => {
+      mk('circle', { cx, cy, r: 44, fill: mix('#102030', '#f4f8fc', .1), stroke: COL.dim, 'stroke-width': 2.2 }, g);
+      path(g, `M${cx - 22} ${cy - 38} Q${cx - 10} ${cy - 40 - crestSize} ${cx} ${cy - 42} Q${cx + 12} ${cy - 38 - crestSize} ${cx + 22} ${cy - 34}`, {
+        stroke: color, 'stroke-width': 6,
+      });
+      mk('polygon', { points: `${cx + 40},${cy - 6} ${cx + 62},${cy} ${cx + 40},${cy + 8}`, fill: C_ESTRO }, g);
+    };
+
+    horCard(p, 70, 152, 460, 475, { title: '1. Coq témoin (non opéré)', color: C_SEX, t0: .08 });
+    const k1 = G(p, { o: 0 });
+    drawCock(k1, 300, 295, 36, C_BRAIN);
+    mk('circle', { cx: 282, cy: 368, r: 11, fill: C_SEX }, k1);
+    mk('circle', { cx: 318, cy: 368, r: 11, fill: C_SEX }, k1);
+    T(k1, 'Testicules présents', { x: 300, y: 440, size: 24, weight: 700, fill: C_SEX, anchor: 'middle' });
+    T(k1, 'Crête rouge développée,', { x: 300, y: 484, size: 21, anchor: 'middle' });
+    T(k1, 'chant et caractères adultes.', { x: 300, y: 516, size: 21, anchor: 'middle' });
+    horPill(k1, 300, 576, 'Référence normale', C_SEX);
+    show(k1, m('control') + .05, .45);
+
+    horCard(p, 570, 152, 460, 475, { title: '2. Ablation (chapon)', color: C_BRAIN, t0: .14 });
+    const k2 = G(p, { o: 0 });
+    drawCock(k2, 800, 295, 8, COL.faint);
+    mk('circle', { cx: 782, cy: 368, r: 11, fill: 'none', stroke: C_BRAIN, 'stroke-width': 2.2, 'stroke-dasharray': '4 3' }, k2);
+    mk('circle', { cx: 818, cy: 368, r: 11, fill: 'none', stroke: C_BRAIN, 'stroke-width': 2.2, 'stroke-dasharray': '4 3' }, k2);
+    T(k2, 'Testicules retirés', { x: 800, y: 440, size: 24, weight: 700, fill: C_BRAIN, anchor: 'middle' });
+    T(k2, 'La crête reste atrophiée :', { x: 800, y: 484, size: 21, anchor: 'middle' });
+    T(k2, 'les testicules contrôlent la crête.', { x: 800, y: 516, size: 21, anchor: 'middle' });
+    horPill(k2, 800, 576, 'Organe indispensable', C_BRAIN);
+    show(k2, m('ablation') + .05, .45);
+
+    horCard(p, 1070, 152, 460, 475, { title: '3. Injection de testostérone', color: C_ESTRO, t0: .2 });
+    const k3 = G(p, { o: 0 });
+    drawCock(k3, 1300, 295, 36, C_BRAIN);
+    path(k3, 'M1270 365 H1330', { stroke: C_ESTRO, 'stroke-width': 4 });
+    mk('rect', { x: 1280, y: 353, width: 32, height: 24, rx: 4, fill: mix('#102030', C_ESTRO, .45), stroke: C_ESTRO, 'stroke-width': 2 }, k3);
+    T(k3, 'Extraits testiculaires', { x: 1300, y: 440, size: 24, weight: 700, fill: C_ESTRO, anchor: 'middle' });
+    T(k3, 'La crête repousse sans testicule :', { x: 1300, y: 484, size: 21, anchor: 'middle' });
+    T(k3, 'action chimique hormonale.', { x: 1300, y: 516, size: 21, anchor: 'middle' });
+    horPill(k3, 1300, 576, 'Testostérone dans le sang', C_ESTRO, null, { w: 320 });
+    show(k3, m('injection') + .05, .45);
+
+    horCard(p, 70, 660, 1460, 135, { title: 'Chez l’être humain', color: C_BLOOD, t0: m('injection') + .35 });
+    horText(p, 'Testostérone (chez l’homme) ainsi qu’œstrogènes et progestérone (chez la femme)', 800, 742, m('injection') + .55, { size: 24, weight: 600, fill: COL.chalk, anchor: 'middle' });
+    horText(p, 'provoquent l’apparition des caractères sexuels secondaires (voix, pilosité, hanches, seins…).', 800, 776, m('injection') + .7, { size: 21, fill: C_SEX, anchor: 'middle' });
+  }],
+
+  ['q2', 'Question · Caractères sexuels', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Primaires ou secondaires ?', 72, .05, 'Distinguer organes reproducteurs et transformations externes de la puberté');
+    horCard(p, 160, 175, 580, 290, { title: 'Caractères sexuels primaires', color: C_BRAIN, t0: .1 });
+    horText(p, 'Présents dès la naissance,', 450, 285, .2, { size: 24, anchor: 'middle' });
+    horText(p, 'matures à la puberté grâce', 450, 325, .25, { size: 24, anchor: 'middle' });
+    horText(p, 'aux gonadostimulines.', 450, 365, .3, { size: 24, fill: C_BRAIN, weight: 700, anchor: 'middle' });
+
+    horCard(p, 860, 175, 580, 290, { title: 'Caractères sexuels secondaires', color: C_SEX, t0: .15 });
+    horText(p, 'Apparaissent à la puberté', 1150, 285, .25, { size: 24, anchor: 'middle' });
+    horText(p, 'sous l’effet des hormones', 1150, 325, .3, { size: 24, anchor: 'middle' });
+    horText(p, 'sexuelles dans le sang.', 1150, 365, .35, { size: 24, fill: C_SEX, weight: 700, anchor: 'middle' });
+  }, {
+    ask: done => quiz(BAND, [{
+      id: 'ch1-q2',
+      prompt: ['Lequel de ces exemples correspond à un caractère sexuel primaire ?'],
+      build: choice([
+        'Le développement des ovaires et des testicules',
+        'La mue de la voix chez le garçon',
+        'L’élargissement des hanches chez la jeune fille',
+      ], 0, 'Exact ! Les organes reproducteurs (ovaires, testicules) sont les caractères sexuels primaires.', [
+        null,
+        'Non, la mue de la voix est un caractère sexuel secondaire lié à la testostérone.',
+        'Non, l’élargissement des hanches est un caractère sexuel secondaire.',
+      ]),
+    }], done),
+  }],
+
+  ['wrap', 'À retenir · Chapitre 1', (m) => {
+    const p = panel(0);
+    horTitle(p, 'À retenir — Chapitre 1', 72, .05, 'Trois notions clés sur le déclenchement hormonal de la puberté');
+
+    const rows = [
+      ['1. L’hypophyse déclenche la puberté', 'Vers 9,5 ans (fille) et 11 ans (garçon), cette glande cérébrale libère des gonadostimulines dans le sang.', C_BRAIN, m('w1')],
+      ['2. Activation des organes reproducteurs', 'Les gonadostimulines stimulent testicules et ovaires : développement des caractères sexuels primaires.', C_BLOOD, m('w2')],
+      ['3. Hormones sexuelles et caractères secondaires', 'Testostérone, œstrogènes et progestérone déclenchent ensuite voix, pilosité et transformations du corps.', C_SEX, m('w3')],
+    ];
+    rows.forEach(([ttl, desc, col, t0], i) => {
+      const y = 162 + i * 208;
+      horCard(p, 130, y, 1340, 174, { title: ttl, color: col, t0 });
+      horText(p, desc, 800, y + 114, t0 + .2, { size: 24, fill: COL.chalk, anchor: 'middle' });
+    });
+  }],
+
+  ['final1', 'Mise en pratique finale', () => {
+    panel(0);
+  }, {
+    ask: done => quiz(SCREEN, [
+      {
+        id: 'ch1-f1',
+        prompt: ['1 / 3 · Quelle substance libérée par l’hypophyse agit directement sur les ovaires et les testicules ?'],
+        build: choice([
+          'Les gonadostimulines',
+          'La testostérone seule',
+          'Des globules rouges',
+        ], 0, 'Bravo ! L’hypophyse libère les gonadostimulines (hormones cérébrales) dans le sang.', [
+          null,
+          'Non, la testostérone est fabriquée ensuite par les testicules.',
+          'Non, les globules rouges transportent le dioxygène, pas l’ordre pubertaire.',
+        ]),
+      },
+      {
+        id: 'ch1-f2',
+        prompt: ['2 / 3 · Vrai ou Faux : coche la réponse exacte pour chaque affirmation.'],
+        build: grid([
+          { parts: ['Une hormone est libérée dans le sang par une glande endocrine.'], ans: ['v'], why: 'Vrai : c’est la définition même de la communication hormonale.' },
+          { parts: ['Chez le garçon, les gonadostimulines augmentent dès 9,5 ans, avant la fille.'], ans: ['f'], why: 'Faux : la hausse débute vers 9,5 ans chez la fille et vers 11 ans chez le garçon.' },
+          { parts: ['Chez le coq castré, l’injection de testostérone rétablit la crête.'], ans: ['v'], why: 'Vrai : cette hormone sexuelle remplace le signal produit par les testicules.' },
+        ], [['v', 'Vrai', C_SEX], ['f', 'Faux', C_BRAIN]], { multi: false, text: true }),
+      },
+      {
+        id: 'ch1-f3',
+        prompt: ['3 / 3 · Quelle hormone rétablit les caractères sexuels masculins lorsqu’on injecte des extraits testiculaires au chapon ?'],
+        build: choice([
+          'La testostérone, transportée par le sang',
+          'L’insuline du pancréas',
+          'La bile sécrétée par le foie',
+        ], 0, 'Parfait ! La testostérone agit à distance via le sang comme hormone sexuelle.', [
+          null,
+          'Non, l’insuline régule la glycémie, pas les caractères sexuels.',
+          'Non, la bile est une sécrétion digestive.',
+        ]),
+      },
+    ], done, 'Mise en pratique · Chapitre 1'),
+  }],
+
+  ['finish', 'Terminé', () => { panel(0); }, { ask: finishCard }],
+].map(([id, title, run, extra]) => ({ id, title, run, ...extra }));
+
+boot();
+</script>
+</body>
+</html>

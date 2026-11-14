@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapitre 4 · Pilule et schéma bilan — Contrôle hormonal</title>
+<link rel="stylesheet" href="../lib/engine.css">
+<link rel="expect" href="#bar" blocking="render">
+</head>
+<body>
+<script src="../lib/engine.js"></script>
+<script src="../lib/lang-fr.js"></script>
+<script src="../lib/vocab.js"></script>
+<script src="audio/fr/timings.js"></script>
+<script>
+'use strict';
+const CHAPTER = {
+  number: 4,
+  title: 'Action de la pilule contraceptive et schéma fonctionnel bilan',
+  minutes: 6,
+  language: 'fr',
+  next: null,
+};
+
+const BEATS = [
+  ['intro', 'Introduction', (m, D) => {
+    const g = G(scene, { o: 0, y: 18 });
+    T(g, 'SVT · Cycle 4 (4e) · Partie 2 · Chapitre 4', { x: 800, y: 195, size: 27, fill: COL.dim, anchor: 'middle' });
+    T(g, 'Pilule et schéma bilan', { x: 800, y: 300, size: 78, weight: 700, fill: COL.chalk, anchor: 'middle' });
+    T(g, 'Bloquer l’ovulation et tout synthétiser', { x: 800, y: 382, size: 48, weight: 600, fill: C_PILULE, anchor: 'middle' });
+    horSchemaNode(g, 360, 545, 220, 88, 'Pilule', { kind: 'circle', color: C_PILULE });
+    horArrow(g, 485, 545, 1085, 545, .35, { color: C_PILULE, sw: 5 });
+    horBlockBadge(g, 785, 545, C_PILULE, .45, 22);
+    horSchemaNode(g, 1240, 545, 280, 88, 'Ovaires & Utérus', { color: C_SEX, sub: 'ovulation bloquée' });
+    T(g, 'Blocage hormonal « − »', { x: 785, y: 495, size: 22, weight: 600, fill: C_PILULE, anchor: 'middle' });
+    tw(g, { o: 1, y: 0 }, .12, .75, out);
+    const sub = horText(scene, 'Comment la pilule agit-elle sur les taux d’hormones et comment résumer tout le contrôle hormonal ?', 800, 745, m('sub'), { size: 28, fill: COL.dim, anchor: 'middle' });
+    tw(g, { o: 0, y: -18 }, D - .75, .65);
+    hide(sub, D - .75, .65);
+  }],
+
+  ['doc3_pilule', 'Document 3 · Action de la pilule', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Document 3 · Dosages avec et sans pilule normodosée (0–64 jours)', 68, .05, 'Comparaison des hormones ovariennes naturelles avant et pendant la prise');
+
+    horDoc(p, '../img/doc3_pilule.webp', 326, 138, 948, 452, { color: C_PILULE, pad: 10, t0: .06 });
+    horSpotlight(p, 385, 152, 340, 375, C_SEX, m('natural'), .4);
+    horSpotlight(p, 730, 152, 505, 375, C_PILULE, m('pill'), .4);
+
+    horCard(p, 120, 610, 430, 195, { title: '1. Cycle naturel (0–28 j)', color: C_SEX, t0: m('natural') });
+    horText(p, 'Pics d’œstrogènes et de progestérone.', 146, 698, m('natural') + .2, { size: 21 });
+    horText(p, 'Ovulation présente vers J14,', 146, 734, m('natural') + .35, { size: 21, fill: C_SEX, weight: 700 });
+    horText(p, 'suivie des règles en fin de cycle.', 146, 766, m('natural') + .4, { size: 21 });
+
+    horCard(p, 585, 610, 430, 195, { title: '2. Sous pilule (28–64 j)', color: C_PILULE, t0: m('pill') });
+    horText(p, 'Prise quotidienne de la pilule :', 611, 698, m('pill') + .2, { size: 21 });
+    horText(p, 'taux naturels maintenus très bas,', 611, 734, m('pill') + .35, { size: 21, fill: C_PILULE, weight: 700 });
+    horText(p, 'courbes pratiquement plates.', 611, 766, m('pill') + .4, { size: 21 });
+
+    horCard(p, 1050, 610, 430, 195, { title: '3. Ovulation bloquée', color: C_ESTRO, t0: m('blocked') });
+    horText(p, 'Sans pic hormonal, l’ovaire', 1076, 698, m('blocked') + .2, { size: 21 });
+    horText(p, 'est mis au repos : pas d’ovulation.', 1076, 734, m('blocked') + .35, { size: 21, fill: C_ESTRO, weight: 700 });
+    horText(p, 'Saignements artificiels à l’arrêt.', 1076, 766, m('blocked') + .4, { size: 21 });
+  }],
+
+  ['contraception_modes', 'Méthodes contraceptives', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Les méthodes contraceptives : trois modes d’action', 68, .05, 'Document récapitulatif : empêcher gamètes, ovulation ou nidation');
+
+    horCard(p, 60, 148, 885, 648, { title: 'Tableau de cours · Méthodes contraceptives', color: C_BLOOD, t0: .06 });
+    horDoc(p, '../img/doc_contraception.webp', 80, 206, 845, 574, { color: C_BLOOD, pad: 8, t0: .12 });
+
+    horCard(p, 975, 148, 565, 196, { title: '1. Rencontre des gamètes', color: C_BLOOD, t0: m('barriers') });
+    horText(p, 'Préservatifs masculin / féminin, diaphragme.', 1002, 236, m('barriers') + .2, { size: 22, weight: 700, fill: C_BLOOD });
+    horText(p, 'Action mécanique barrière.', 1002, 272, m('barriers') + .3, { size: 21 });
+    horText(p, 'Seul le préservatif protège aussi des IST.', 1002, 308, m('barriers') + .4, { size: 21, fill: C_SEX, weight: 700 });
+
+    horCard(p, 975, 374, 565, 196, { title: '2. Bloquer l’ovulation', color: C_PILULE, t0: m('hormonal') });
+    horText(p, 'Pilule contraceptive, implant hormonal.', 1002, 462, m('hormonal') + .2, { size: 22, weight: 700, fill: C_PILULE });
+    horText(p, 'Suppriment le pic ovulatoire et modifient', 1002, 498, m('hormonal') + .3, { size: 21 });
+    horText(p, 'la muqueuse utérine et la glaire.', 1002, 534, m('hormonal') + .4, { size: 21 });
+
+    horCard(p, 975, 600, 565, 196, { title: '3. Empêcher la nidation', color: C_ESTRO, t0: m('implantation') });
+    horText(p, 'Stérilet (DIU cuivre ou hormonal).', 1002, 688, m('implantation') + .2, { size: 22, weight: 700, fill: C_ESTRO });
+    horText(p, 'Placé dans l’utérus, il empêche', 1002, 724, m('implantation') + .3, { size: 21 });
+    horText(p, 'l’implantation d’un éventuel embryon.', 1002, 760, m('implantation') + .4, { size: 21 });
+  }],
+
+  ['q1', 'Question · Mécanisme de la pilule', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Rappel · Courbes sous pilule (Document 3)', 72, .05);
+    horDoc(p, '../img/doc3_pilule.webp', 415, 140, 770, 360, { color: C_PILULE, pad: 8, t0: .08 });
+    horSpotlight(p, 735, 152, 425, 305, C_PILULE, .25, .4);
+  }, {
+    ask: done => quiz(BAND, [{
+      id: 'ch4-q1',
+      prompt: ['D’après le Document 3, comment la pilule normodosée empêche-t-elle une grossesse ?'],
+      build: choice([
+        'Elle maintient les hormones naturelles basses et plates, bloquant ainsi l’ovulation',
+        'Elle empêche physiquement le passage des spermatozoïdes comme un préservatif',
+        'Elle augmente fortement la progestérone à 250 pg/mL tous les matins',
+      ], 0, 'Exact ! En supprimant les pics hormonaux, la pilule empêche la libération d’un ovule.', [
+        null,
+        'Non, c’est le rôle mécanique du préservatif ou du diaphragme.',
+        'Non, regarde les courbes plates dès le jour 28 : aucun pic ne se forme sous pilule.',
+      ]),
+    }], done),
+  }],
+
+  ['schema_bilan', 'Schéma fonctionnel bilan', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Schéma fonctionnel bilan et correction officielle', 68, .05, 'Construction progressive à gauche · Correction du cours à droite');
+
+    horCard(p, 55, 140, 890, 665, { title: 'Construction du schéma fonctionnel', color: C_ESTRO, t0: .06 });
+
+    const sPit = G(p, { o: 0 });
+    horSchemaNode(sPit, 500, 240, 310, 62, 'Cerveau (Hypophyse)', { color: C_BRAIN });
+    horSchemaNode(sPit, 255, 418, 195, 62, 'Testicules', { color: C_BRAIN });
+    horSchemaNode(sPit, 685, 418, 195, 62, 'Ovaires', { color: C_BRAIN });
+    horArrow(sPit, 405, 272, 265, 384, m('pituitary') + .15, { color: C_BRAIN, sw: 4.5 });
+    horArrow(sPit, 595, 272, 675, 384, m('pituitary') + .15, { color: C_BRAIN, sw: 4.5 });
+    T(sPit, 'Gonadostimulines', { x: 485, y: 318, size: 19, weight: 700, fill: C_BRAIN, anchor: 'middle' });
+    T(sPit, '→ Car. sex. primaires', { x: 485, y: 344, size: 17, fill: COL.chalk, anchor: 'middle' });
+    show(sPit, m('pituitary'), .45);
+
+    const sSex = G(p, { o: 0 });
+    horSchemaNode(sSex, 315, 620, 280, 74, ['Caractères sexuels', 'secondaires'], { color: C_ESTRO, size: 19 });
+    horSchemaNode(sSex, 685, 620, 235, 92, ['Muqueuse', 'utérine'], { kind: 'diamond', color: C_SEX, size: 18 });
+    horArrow(sSex, 255, 452, 255, 580, m('sexHormones') + .15, { color: C_SEX, sw: 4.5 });
+    horArrow(sSex, 635, 450, 415, 582, m('sexHormones') + .25, { color: C_SEX, sw: 4.5 });
+    horArrow(sSex, 685, 452, 685, 570, m('sexHormones') + .2, { color: C_SEX, sw: 4.5 });
+    T(sSex, 'Testostérone', { x: 145, y: 512, size: 17, weight: 700, fill: C_SEX, anchor: 'middle' });
+    T(sSex, 'Œstro. + Prog.', { x: 525, y: 502, size: 17, weight: 700, fill: C_SEX, anchor: 'middle' });
+    show(sSex, m('sexHormones'), .45);
+
+    const sPil = G(p, { o: 0 });
+    horSchemaNode(sPil, 865, 512, 92, 92, 'Pilule', { kind: 'circle', color: C_PILULE, size: 20 });
+    horArrow(sPil, 828, 476, 780, 434, m('minus') + .15, { color: C_PILULE, sw: 4 });
+    horBlockBadge(sPil, 804, 455, C_PILULE, m('minus') + .2, 13);
+    horArrow(sPil, 832, 550, 775, 594, m('minus') + .2, { color: C_PILULE, sw: 4 });
+    horBlockBadge(sPil, 804, 572, C_PILULE, m('minus') + .25, 13);
+    horPill(sPil, 500, 745, 'Légende : rouge = hypophyse · vert = hormones sexuelles · (−) = blocage pilule', C_BLOOD, m('minus') + .35, { w: 800, size: 18 });
+    show(sPil, m('minus'), .45);
+
+    horCard(p, 975, 140, 570, 665, { title: 'Correction officielle du cours', color: C_SEX, t0: m('official') });
+    horDoc(p, '../img/schema_bilan_correction.webp', 995, 200, 530, 590, { color: C_SEX, pad: 8, t0: m('official') + .15 });
+  }],
+
+  ['q2', 'Question · Lecture du schéma bilan', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Rappel · Symboles de la pilule sur le schéma bilan', 72, .05);
+    horSchemaNode(p, 480, 300, 120, 120, 'Pilule', { kind: 'circle', color: C_PILULE, t0: .1 });
+    horArrow(p, 555, 275, 860, 225, .2, { color: C_PILULE, sw: 5 });
+    horBlockBadge(p, 705, 250, C_PILULE, .3, 18);
+    horArrow(p, 555, 325, 860, 375, .25, { color: C_PILULE, sw: 5 });
+    horBlockBadge(p, 705, 350, C_PILULE, .35, 18);
+    horSchemaNode(p, 1020, 220, 260, 74, 'Ovaires', { color: C_BRAIN, t0: .15 });
+    horSchemaNode(p, 1020, 380, 270, 86, ['Muqueuse', 'utérine'], { kind: 'diamond', color: C_SEX, size: 19, t0: .15 });
+  }, {
+    ask: done => quiz(BAND, [{
+      id: 'ch4-q2',
+      prompt: ['Que signifient les deux flèches marquées « − » partant du cercle « Pilule » sur le schéma bilan officiel ?'],
+      build: choice([
+        'La pilule freine ou bloque l’activité des ovaires (ovulation) et le développement de la muqueuse utérine',
+        'La pilule stimule l’hypophyse pour produire deux ovules par cycle',
+        'La pilule retire physiquement les testicules et les ovaires',
+      ], 0, 'Exact ! Le signe « − » symbolise une action inhibitrice (blocage) sur les ovaires et sur l’utérus.', [
+        null,
+        'Non, le signe « − » indique au contraire un blocage hormonal, et non une stimulation.',
+        'Non, son effet est purement hormonal et réversible à l’arrêt de la prise.',
+      ]),
+    }], done),
+  }],
+
+  ['wrap', 'À retenir · Chapitre 4', (m) => {
+    const p = panel(0);
+    horTitle(p, 'À retenir — Chapitre 4', 72, .05, 'Contraception et schéma fonctionnel complet');
+
+    const rows = [
+      ['1. Mode d’action de la pilule (Document 3)', 'La prise quotidienne d’hormones maintient des taux bas et plats : sans pic hormonal, l’ovulation est bloquée.', C_PILULE, m('w1')],
+      ['2. Trois cibles contraceptives', 'Empêcher la rencontre des gamètes (préservatif + protection IST), l’ovulation (pilule/implant) ou la nidation (stérilet).', C_BLOOD, m('w2')],
+      ['3. Le schéma bilan officiel', 'Cerveau (gonadostimulines) → testicules/ovaires → caractères secondaires + muqueuse utérine ; pilule = frein « − ».', C_SEX, m('w3')],
+    ];
+    rows.forEach(([ttl, desc, col, t0], i) => {
+      const y = 162 + i * 208;
+      horCard(p, 130, y, 1340, 174, { title: ttl, color: col, t0 });
+      horText(p, desc, 800, y + 114, t0 + .2, { size: 22, fill: COL.chalk, anchor: 'middle' });
+    });
+  }],
+
+  ['final1', 'Mise en pratique finale', () => {
+    panel(0);
+  }, {
+    ask: done => quiz(SCREEN, [
+      {
+        id: 'ch4-f1',
+        prompt: ['1 / 3 · Associe la bonne méthode : quel contraceptif agit principalement en empêchant l’ovulation ?'],
+        build: choice([
+          'La pilule contraceptive (ou l’implant hormonal)',
+          'Le préservatif masculin en latex',
+          'Le diaphragme placé devant le col de l’utérus',
+        ], 0, 'Exact ! Pilule et implant agissent par voie hormonale sur le déclenchement de l’ovulation.', [
+          null,
+          'Non, le préservatif empêche mécaniquement la rencontre des gamètes (et protège des IST).',
+          'Non, le diaphragme est une barrière mécanique bloquant la rencontre des gamètes.',
+        ]),
+      },
+      {
+        id: 'ch4-f2',
+        prompt: ['2 / 3 · Vrai ou Faux : vérifie ta compréhension du schéma bilan et des contraceptifs.'],
+        build: grid([
+          { parts: ['La pilule supprime le pic hormonal qui déclenche l’ovulation.'], ans: ['v'], why: 'Vrai : le Document 3 montre des courbes plates sous pilule normodosée.' },
+          { parts: ['Sur le schéma bilan, les gonadostimulines viennent des ovaires vers le cerveau.'], ans: ['f'], why: 'Faux : elles sont sécrétées par l’hypophyse (cerveau) vers les ovaires et les testicules.' },
+          { parts: ['Le préservatif protège à la fois contre une grossesse et contre les IST.'], ans: ['v'], why: 'Vrai : c’est l’unique contraceptif protégeant aussi des infections sexuellement transmissibles.' },
+        ], [['v', 'Vrai', C_SEX], ['f', 'Faux', C_PILULE]], { multi: false, text: true }),
+      },
+      {
+        id: 'ch4-f3',
+        prompt: ['3 / 3 · Sur le schéma bilan officiel, quel organe libère les gonadostimulines (flèches rouges) vers les ovaires et les testicules ?'],
+        build: choice([
+          'L’hypophyse, petite glande située à la base du cerveau',
+          'La muqueuse utérine pendant les règles',
+          'Le diaphragme mécanique',
+        ], 0, 'Bravo ! Tu maîtrises tout le contrôle hormonal et le mode d’action de la pilule.', [
+          null,
+          'Non, la muqueuse utérine est une cible des hormones ovariennes.',
+          'Non, le diaphragme est une méthode contraceptive barrière.',
+        ]),
+      },
+    ], done, 'Mise en pratique · Chapitre 4'),
+  }],
+
+  ['finish', 'Terminé', () => { panel(0); }, { ask: finishCard }],
+].map(([id, title, run, extra]) => ({ id, title, run, ...extra }));
+
+boot();
+</script>
+</body>
+</html>

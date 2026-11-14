@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapitre 2 · Appareil reproducteur féminin — Contrôle hormonal</title>
+<link rel="stylesheet" href="../lib/engine.css">
+<link rel="expect" href="#bar" blocking="render">
+</head>
+<body>
+<script src="../lib/engine.js"></script>
+<script src="../lib/lang-fr.js"></script>
+<script src="../lib/vocab.js"></script>
+<script src="audio/fr/timings.js"></script>
+<script>
+'use strict';
+const CHAPTER = {
+  number: 2,
+  title: 'Le contrôle hormonal de l’appareil reproducteur féminin',
+  minutes: 6,
+  language: 'fr',
+  next: '../ch03/',
+};
+
+const BEATS = [
+  ['intro', 'Introduction', (m, D) => {
+    const g = G(scene, { o: 0, y: 18 });
+    T(g, 'SVT · Cycle 4 (4e) · Partie 1 · Chapitre 2', { x: 800, y: 195, size: 27, fill: COL.dim, anchor: 'middle' });
+    T(g, 'Ovaire, sang et utérus', { x: 800, y: 300, size: 78, weight: 700, fill: COL.chalk, anchor: 'middle' });
+    T(g, 'Les expériences chez la souris', { x: 800, y: 382, size: 50, weight: 600, fill: C_SEX, anchor: 'middle' });
+    horSchemaNode(g, 370, 545, 240, 88, 'Ovaires', { color: C_ESTRO, sub: 'glande hormonale' });
+    horBloodStream(g, 510, 545, 1065, 545, C_ESTRO, .25, .85, { droplets: 6 });
+    horSchemaNode(g, 1225, 545, 270, 88, 'Muqueuse utérine', { color: C_BRAIN, sub: 'organe cible' });
+    T(g, 'Œstrogènes et progestérone ?', { x: 788, y: 495, size: 22, weight: 600, fill: C_ESTRO, anchor: 'middle' });
+    tw(g, { o: 1, y: 0 }, .12, .75, out);
+    const sub = horText(scene, 'Comment prouver expérimentalement que les ovaires commandent l’utérus via le sang ?', 800, 745, m('sub'), { size: 29, fill: COL.dim, anchor: 'middle' });
+    tw(g, { o: 0, y: -18 }, D - .75, .65);
+    hide(sub, D - .75, .65);
+  }],
+
+  ['doc1_observe', 'Document 1 · Témoin et ablation', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Document 1 · Témoin et ablation des ovaires chez la souris', 68, .05, 'Mise en évidence du rôle indispensable des ovaires');
+
+    horDoc(p, '../img/doc1_souris.webp', 70, 175, 1020, 390, {
+      color: C_BLOOD, pad: 10, caption: 'Document 1 du cours · Expériences chez la souris', t0: .08,
+    });
+    horSpotlight(p, 80, 188, 215, 364, C_SEX, m('witness'), .4);
+    horSpotlight(p, 295, 188, 260, 364, C_PILULE, m('ovariectomy'), .4);
+
+    horCard(p, 1120, 145, 415, 225, { title: '1. Souris témoin', color: C_SEX, t0: m('witness') });
+    horText(p, '• Possède ses 2 ovaires.', 1148, 232, m('witness') + .2, { size: 22 });
+    horText(p, '• La muqueuse utérine se', 1148, 272, m('witness') + .35, { size: 22 });
+    horText(p, '  développe normalement.', 1148, 304, m('witness') + .4, { size: 22, fill: C_SEX, weight: 700 });
+
+    horCard(p, 1120, 405, 415, 225, { title: '2. Retrait des ovaires', color: C_PILULE, t0: m('ovariectomy') });
+    horText(p, '• Ablation bilatérale.', 1148, 492, m('ovariectomy') + .2, { size: 22 });
+    horText(p, '• Aucun développement', 1148, 532, m('ovariectomy') + .35, { size: 22 });
+    horText(p, '  cyclique de la muqueuse.', 1148, 564, m('ovariectomy') + .4, { size: 22, fill: C_PILULE, weight: 700 });
+
+    horPill(p, 800, 745, 'Déduction : les ovaires sont indispensables au fonctionnement cyclique de l’utérus.', C_ESTRO, m('ovariectomy') + .55, { w: 1020, size: 22 });
+  }],
+
+  ['doc1_greffe', 'Document 1 · Greffe et injections', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Document 1 · Greffe sous la peau et injections', 68, .05, 'Identifier la voie de communication et les substances chimiques');
+
+    horDoc(p, '../img/doc1_souris.webp', 70, 175, 1020, 390, {
+      color: C_SEX, pad: 10, caption: 'Document 1 · Colonnes 3 (greffe) et 4 (extraits ovariens)', t0: .06,
+    });
+    horSpotlight(p, 555, 188, 265, 364, C_BLOOD, m('graft'), .4);
+    horSpotlight(p, 820, 188, 260, 364, C_ESTRO, m('extracts'), .4);
+
+    horCard(p, 1120, 145, 415, 225, { title: '3. Greffe sous la peau', color: C_BLOOD, t0: m('graft') });
+    horText(p, '• Aucun nerf vers l’utérus,', 1148, 232, m('graft') + .2, { size: 22 });
+    horText(p, '  rebranché au sang.', 1148, 266, m('graft') + .3, { size: 22 });
+    horText(p, '→ Cycle rétabli : voie sanguine !', 1148, 314, m('graft') + .45, { size: 21, fill: C_BLOOD, weight: 700 });
+
+    horCard(p, 1120, 405, 415, 225, { title: '4. Extraits ovariens', color: C_ESTRO, t0: m('extracts') });
+    horText(p, '• Injections d’œstrogènes', 1148, 492, m('extracts') + .2, { size: 22 });
+    horText(p, '  et de progestérone.', 1148, 526, m('extracts') + .3, { size: 22 });
+    horText(p, '→ Cycle rétabli : 2 hormones !', 1148, 574, m('extracts') + .45, { size: 21, fill: C_ESTRO, weight: 700 });
+
+    horPill(p, 800, 745, 'Preuve : communication sanguine par les œstrogènes et la progestérone.', C_SEX, m('extracts') + .6, { w: 980, size: 22 });
+  }],
+
+  ['q1', 'Question · Sens de la greffe', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Rappel · Expérience 3 (greffe sous la peau)', 72, .05, 'Ovaire greffé loin de l’utérus, irrigué par des vaisseaux sanguins');
+    horSchemaNode(p, 375, 315, 280, 96, 'Ovaire greffé', { color: C_ESTRO, sub: 'sous la peau (sans nerf)', t0: .1 });
+    horBloodStream(p, 535, 315, 1055, 315, C_BLOOD, .2, .7, { droplets: 6 });
+    horSchemaNode(p, 1225, 315, 280, 96, 'Utérus', { color: C_SEX, sub: 'cycle rétabli', t0: .15 });
+  }, {
+    ask: done => quiz(BAND, [{
+      id: 'ch2-q1',
+      prompt: ['Que démontre le rétablissement du cycle utérin chez la souris numéro 3 (ovaire greffé sous la peau) ?'],
+      build: choice([
+        'L’ovaire communique avec l’utérus par la voie sanguine, et non par les nerfs',
+        'La peau fabrique elle-même un ovule chaque mois',
+        'Les ovaires sont inutiles au cycle de l’utérus',
+      ], 0, 'Exact ! L’ovaire greffé sous la peau n’a plus de lien nerveux avec l’utérus mais retrouve des vaisseaux sanguins.', [
+        null,
+        'Non, la peau sert uniquement de site richement irrigué par le sang pour accueillir le greffon.',
+        'Non, sans ovaire ni extraits (expérience 2), la muqueuse ne se développe pas.',
+      ]),
+    }], done),
+  }],
+
+  ['bilan_experience', 'Synthèse expérimentale', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Bilan des quatre expériences chez la souris', 68, .05, 'Rapprocher les protocoles pour conclure');
+
+    const cols = [
+      ['1. Témoin', 'Ovaires en place', 'Cycle utérin normal', C_INK, 'thick', .08],
+      ['2. Retrait des ovaires', 'Ø Ovaire', 'Muqueuse atrophiée', C_PILULE, 'thin', m('compare') - .1],
+      ['3. Greffe sous peau', 'Lien sanguin seul', 'Cycle rétabli', C_BLOOD, 'grow', m('compare') + .25],
+      ['4. Extraits injectés', 'Œstro. + Progest.', 'Cycle rétabli', C_ESTRO, 'thick', m('compare') + .55],
+    ];
+    cols.forEach(([title, sub, res, col, stage, t0], i) => {
+      const x = 65 + i * 375;
+      horCard(p, x, 152, 345, 395, { title, color: col, t0 });
+      horText(p, sub, x + 172, 238, t0 + .15, { size: 22, weight: 700, fill: col, anchor: 'middle' });
+      horMucosaStage(p, x + 72, 270, 200, 150, { stage, t0: t0 + .2, color: col });
+      horText(p, res, x + 172, 488, t0 + .3, { size: 22, weight: 700, fill: COL.chalk, anchor: 'middle' });
+    });
+
+    horCard(p, 65, 585, 1470, 205, { title: 'Conclusion rigoureuse', color: C_SEX, t0: m('conclusion') });
+    horSchemaNode(p, 250, 710, 220, 76, 'Ovaires', { color: C_ESTRO, t0: m('conclusion') + .15 });
+    horBloodStream(p, 385, 710, 935, 710, C_ESTRO, m('conclusion') + .25, .8, { droplets: 6 });
+    horText(p, 'Œstrogènes & Progestérone', 660, 668, m('conclusion') + .35, { size: 22, weight: 700, fill: C_ESTRO, anchor: 'middle' });
+    horSchemaNode(p, 1140, 710, 340, 76, 'Muqueuse utérine', { color: C_SEX, sub: 'développement cyclique', t0: m('conclusion') + .4 });
+  }],
+
+  ['q2', 'Question · Hormones ovariennes', (m) => {
+    const p = panel(0);
+    horTitle(p, 'Rappel · Les messagers chimiques de l’ovaire', 72, .05);
+    horSchemaNode(p, 400, 310, 250, 92, 'Ovaires', { color: C_ESTRO, t0: .1 });
+    horArrow(p, 540, 310, 1020, 310, .2, { color: C_BLOOD, sw: 5 });
+    horPill(p, 780, 255, 'Extraits ovariens', C_BLOOD, .25, { w: 260 });
+    horSchemaNode(p, 1185, 310, 300, 92, 'Utérus', { color: C_SEX, t0: .15 });
+  }, {
+    ask: done => quiz(BAND, [{
+      id: 'ch2-q2',
+      prompt: ['Quelles sont les deux hormones produites par les ovaires qui commandent le cycle de la muqueuse utérine ?'],
+      build: choice([
+        'Les gonadostimulines et l’adrénaline',
+        'Les œstrogènes et la progestérone',
+        'La testostérone et les anticorps',
+      ], 1, 'Exact ! Les ovaires libèrent des œstrogènes et de la progestérone dans le sang.', [
+        'Non, les gonadostimulines viennent de l’hypophyse dans le cerveau.',
+        null,
+        'Non, la testostérone est principalement produite par les testicules.',
+      ]),
+    }], done),
+  }],
+
+  ['wrap', 'À retenir · Chapitre 2', (m) => {
+    const p = panel(0);
+    horTitle(p, 'À retenir — Chapitre 2', 72, .05, 'Ce que prouvent les quatre expériences du Document 1');
+
+    const rows = [
+      ['1. Retrait des ovaires = arrêt du cycle', 'Sans ovaires (expérience 2), la muqueuse utérine cesse de se développer.', C_PILULE, m('w1')],
+      ['2. Greffe sous la peau = voie sanguine', 'Sans lien nerveux direct (expérience 3), les vaisseaux sanguins suffisent à transmettre l’ordre.', C_BLOOD, m('w2')],
+      ['3. Extraits injectés = hormones chimiques', 'Les œstrogènes et la progestérone (expérience 4) rétablissent à eux seuls le cycle utérin.', C_ESTRO, m('w3')],
+    ];
+    rows.forEach(([ttl, desc, col, t0], i) => {
+      const y = 162 + i * 208;
+      horCard(p, 130, y, 1340, 174, { title: ttl, color: col, t0 });
+      horText(p, desc, 800, y + 114, t0 + .2, { size: 24, fill: COL.chalk, anchor: 'middle' });
+    });
+  }],
+
+  ['final1', 'Mise en pratique finale', () => {
+    panel(0);
+  }, {
+    ask: done => quiz(SCREEN, [
+      {
+        id: 'ch2-f1',
+        prompt: ['1 / 3 · D’après le Document 1, qu’observe-t-on après l’ablation des deux ovaires (souris n°2) ?'],
+        build: choice([
+          'La muqueuse utérine ne se développe plus de façon cyclique',
+          'La muqueuse utérine s’épaissit deux fois plus vite',
+          'La souris déclenche deux ovulations par semaine',
+        ], 0, 'Exact ! L’expérience 2 montre que les ovaires sont indispensables au cycle de l’utérus.', [
+          null,
+          'Non, l’absence d’ovaires prive l’utérus des hormones nécessaires à son développement.',
+          'Non, une souris sans ovaires ne peut plus ovuler.',
+        ]),
+      },
+      {
+        id: 'ch2-f2',
+        prompt: ['2 / 3 · Vrai ou Faux : coche la réponse correcte d’après le Document 1.'],
+        build: grid([
+          { parts: ['La souris n°1 sert de témoin avec ses ovaires en place.'], ans: ['v'], why: 'Vrai : le témoin permet de comparer les souris opérées.' },
+          { parts: ['Sous la peau (souris n°3), l’ovaire greffé agit par un nerf relié à l’utérus.'], ans: ['f'], why: 'Faux : l’ovaire greffé n’est relié qu’aux vaisseaux sanguins.' },
+          { parts: ['L’injection d’extraits ovariens (souris n°4) prouve l’action de substances chimiques.'], ans: ['v'], why: 'Vrai : ce sont les hormones ovariennes (œstrogènes et progestérone).' },
+        ], [['v', 'Vrai', C_SEX], ['f', 'Faux', C_PILULE]], { multi: false, text: true }),
+      },
+      {
+        id: 'ch2-f3',
+        prompt: ['3 / 3 · Quelle conclusion expérimentale réunit les expériences 3 (greffe) et 4 (extraits injectés) ?'],
+        build: choice([
+          'Les ovaires contrôlent l’utérus par voie sanguine grâce à des hormones (œstrogènes et progestérone)',
+          'La peau produit elle-même les hormones féminines',
+          'Seule la moelle épinière déclenche les règles',
+        ], 0, 'Bravo ! Tu maîtrises le raisonnement témoin / ablation / greffe / injection.', [
+          null,
+          'Non, la greffe montre que l’ovaire libère ses substances dans les vaisseaux sanguins de la peau.',
+          'Non, aucune liaison nerveuse n’existe avec un ovaire greffé sous la peau.',
+        ]),
+      },
+    ], done, 'Mise en pratique · Chapitre 2'),
+  }],
+
+  ['finish', 'Terminé', () => { panel(0); }, { ask: finishCard }],
+].map(([id, title, run, extra]) => ({ id, title, run, ...extra }));
+
+boot();
+</script>
+</body>
+</html>
